@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base href="/" />
+  <title i18n>乐吾乐 Topology - iframe</title>
+  <meta charset="UTF-8" />
+  <meta name="keywords" content="乐吾乐,le5le,开源,架构图,拓扑图,流程图,类图,活动图,时序图,类图" />
+  <meta name="description"
+    content="一个基于typescript + canvas的好用开源绘图工具和绘图引擎。易集成到自己的前端项目、还可以方便自定义图形库，支持微服务架构图、流程图、时序图、活动图、类图等" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  <meta name="viewport"
+    content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <script type="text/javascript">
+    if (!localStorage) location.href = '/browser.html';
+  </script>
+
+  <script type="text/javascript">
+    window.addEventListener(
+      'message',
+      (e) => {
+        // console.log('addEventListener', e.data);
+        if (e.data.loaded) {
+          setConfigs();
+        }
+      });
+
+    function setConfigs() {
+      var topology = document.getElementById('topology');
+      topology.contentWindow.postMessage(
+        {
+          event: 'configs',
+          data: {
+            // 首页
+            homeUrl: '/search',
+            // 首页导航菜单
+            menus: [{
+              name: '解决方案',
+              router: '/search'
+            }, {
+              name: '入门教程',
+              url: 'https://www.yuque.com/alsmile/topology/use'
+            }],
+            // workspace导航菜单
+            workspaceMenus: [{
+              name: '查看',
+              children: [{
+                name: '行业解决方案',
+                router: '/search'
+              }, {}, {
+                name: '产品介绍',
+                url: 'https://juejin.im/post/5d6c88726fb9a06b0e54ab35'
+              }, {
+                name: '技术支持',
+                url: 'https://www.yuque.com/alsmile/topology/aboutus#gWc5X'
+              }]
+            }]
+          }
+        },
+        '*'
+      );
+    }
+  </script>
+  <iframe id="topology" width="100%" height="100%" scrolling="no" frameborder="0"
+    src="http://local.dev.le5le.com:3200"></iframe>
+</body>
+
+</html>
